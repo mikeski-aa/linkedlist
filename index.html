@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+
+
+const node = (input) => {
+    const value = null || input ;
+    const next = null;
+
+    return {
+        value,
+        next
+    }
+}
+
+const linkedList = (input) => {
+    const list = {
+        value: 'head',
+        next: null
+    }
+
+    const addNode = (start, input) => {
+        if (start.next === null) {
+            console.log('free next');
+            start.next = input;
+        } else {
+            console.log('next not free, moving to new node')
+            let newNode = start.next;
+            addNode(newNode, input);
+        }
+        
+    }
+    return {
+        list,
+        addNode,
+        node};
+}
+
+
+let testnode = node(111);
+let testnode2 = node(222);
+let testnode3 = node(333);
+let testnode4 = node(444);
+let testnode5 = node(555);
+
+let testlist = linkedList();
+
+console.log(testnode);
+console.log(testlist);
+
+testlist.addNode(testlist.list, testnode);
+console.log(testlist);
+
+testlist.addNode(testlist.list, testnode2);
+console.log(testlist);
+
+testlist.addNode(testlist.list, testnode3);
+console.log(testlist);
+
+testlist.addNode(testlist.list, testnode4);
+console.log(testlist);
+
+testlist.addNode(testlist.list, testnode5);
+console.log(testlist);
+
+
+testlist;
+
+
+
+
+
+// let list = {
+//     value: 1,
+//     next: {
+//         value: 2,
+//         next: {
+//             value: 3,
+//             next: {
+//                 value: 4,
+//                 next: null
+//             }
+//         }
+//     }
+// }
+
+
+</script>
+</html>
