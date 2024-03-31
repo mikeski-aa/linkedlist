@@ -1,98 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
-<script>
+  </head>
+  <body></body>
+  <script>
+    const node = (input) => {
+      const value = input;
+      const next = null;
 
-
-
-const node = (input) => {
-    const value = null || input ;
-    const next = null;
-
-    return {
+      return {
         value,
-        next
-    }
-}
+        next,
+      };
+    };
 
-const linkedList = (input) => {
-    const list = {
+    const linkedList = (input) => {
+      let head = {
         value: 'head',
-        next: null
-    }
+        next: null,
+      };
+      
 
-    const addNode = (start, input) => {
+      const appendNode = (start, input) => {
         if (start.next === null) {
-            console.log('free next');
-            start.next = input;
+          console.log("free next");
+          start.next = input;
         } else {
-            console.log('next not free, moving to new node')
-            let newNode = start.next;
-            addNode(newNode, input);
+          console.log("next not free, moving to new node");
+          let newNode = start.next;
+          appendNode(newNode, input);
         }
-        
-    }
-    return {
-        list,
-        addNode,
-        node};
-}
+      };
 
+      const prependNode = (input) => {
+        let oldHead = {...head};
 
-let testnode = node(111);
-let testnode2 = node(222);
-let testnode3 = node(333);
-let testnode4 = node(444);
-let testnode5 = node(555);
+        head.next.value = input.value;
+        head.next.next = oldHead.next;
 
-let testlist = linkedList();
+        console.log(head);
+        console.log(oldHead);
+      };
 
-console.log(testnode);
-console.log(testlist);
+      const checkIfEmpty = () => {};
 
-testlist.addNode(testlist.list, testnode);
-console.log(testlist);
+      return {
+        head,
+        appendNode,
+        prependNode,
+      };
+    };
 
-testlist.addNode(testlist.list, testnode2);
-console.log(testlist);
+    let testnode = node(111);
+    let testnode2 = node(222);
+    let testnode3 = node(333);
+    let testnode4 = node(444);
+    let testnode5 = node(555);
 
-testlist.addNode(testlist.list, testnode3);
-console.log(testlist);
+    let testlist = linkedList();
 
-testlist.addNode(testlist.list, testnode4);
-console.log(testlist);
+    testlist.appendNode(testlist.head, testnode);
 
-testlist.addNode(testlist.list, testnode5);
-console.log(testlist);
+    testlist.appendNode(testlist.head, testnode2);
 
+    testlist.appendNode(testlist.head, testnode3);
+    // console.log(testlist);
 
-testlist;
+    // testlist.appendNode(testlist.list, testnode4);
+    // console.log(testlist);
 
+    // testlist.appendNode(testlist.list, testnode5);
+    // console.log(testlist);
 
+    testlist.prependNode(testnode4);
+    console.log(testlist.head);
 
-
-
-// let list = {
-//     value: 1,
-//     next: {
-//         value: 2,
-//         next: {
-//             value: 3,
-//             next: {
-//                 value: 4,
-//                 next: null
-//             }
-//         }
-//     }
-// }
-
-
-</script>
+    // let list = {
+    //     value: 1,
+    //     next: {
+    //         value: 2,
+    //         next: {
+    //             value: 3,
+    //             next: {
+    //                 value: 4,
+    //                 next: null
+    //             }
+    //         }
+    //     }
+    // }
+  </script>
 </html>
