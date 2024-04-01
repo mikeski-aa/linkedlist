@@ -19,11 +19,11 @@
 
     const linkedList = (input) => {
       let head = {
-        value: 'head',
+        value: "head",
         next: null,
       };
-      
 
+      // adds item to end of linked list
       const appendNode = (start, input) => {
         if (start.next === null) {
           console.log("free next");
@@ -31,23 +31,133 @@
         } else {
           console.log("next not free, moving to new node");
           let newNode = start.next;
-          appendNode(newNode, input);
+          return appendNode(newNode, input);
         }
       };
-
+      // adds item to front of linked list
       const prependNode = (input) => {
-        let oldHead = {...head};
+        let oldHead = { ...head };
 
-        head.next.value = input.value;
-        head.next.next = oldHead.next;
+        head.value = input.value;
+        head.next = oldHead;
 
         console.log(head);
         console.log(oldHead);
       };
+      // returns total number of items
+      const size = (input, count) => {
+        if (input.next === null) {
+          console.log(count);
+          console.log("I am the last node");
+          return count;
+        } else {
+          count++;
+          return size(input.next, count);
+        }
+      };
+      // returns head / top node
+      const currHead = (input) => {
+        let val = input.value;
+        let nxt = input.next;
+        return {
+          val,
+          nxt,
+        };
+      };
+      // returns last node
+      const tail = (input) => {
+        if (input.next === null) {
+          console.log(input.value);
+          console.log(input.next);
+          console.log("I am the last node");
+          return input;
+        } else {
+          return tail(input.next);
+        }
+      };
+      // returns the node at the given index
+      const atInd = (input, startInd, targetInd) => {
+        let index = startInd;
+        let target = targetInd;
 
-      const checkIfEmpty = () => {};
+        if (index === target) {
+          console.log(input.value);
+          console.log(input.next);
+          console.log("target found! index value is " + index);
+          return input;
+        } else {
+          index++;
+          return atInd(input.next, index, target);
+        }
+      };
+      //  removes the last element from the list
+      const pop = (input) => {
+        let totalSize = size(input, 0);
+        let popTarget = totalSize - 1;
+        let targetNode = atInd(input, 0, popTarget);
+        targetNode.next = null;
+        console.log(totalSize);
+        console.log(targetNode);
+      };
+      //  returns true if the passed in value is in the list and otherwise returns false.
+      const containsVal = (input, targetVal) => {
+        if (input.value === targetVal) {
+          console.log("target value found");
+          return true, input;
+        } else if (input.value !== targetVal && input.next === null) {
+          console.log("value not found!");
+          return false;
+        } else {
+          return containsVal(input.next, targetVal);
+        }
+      };
+
+      // returns index of node or null if no index
+      const findVal = (input, targetVal) => {
+        if (containsVal(input, targetVal) !== false) {
+          for (let i = 0; i < size(input, 0); i++) {
+            if (atInd(input, 0, i).value === targetVal) {
+              console.log("FOUND VALUE");
+              console.log("index of found is " + i);
+              return i;
+            }
+          }
+        } else {
+          return null;
+        }
+      };
+
+      // represents your LinkedList objects as strings, so you can print them out and 
+      // preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
+      const toString = (input, arr) => {
+        let valStorage = arr;
+
+        if (input.next === null) {
+          valStorage.push(input.value);
+          console.log(valStorage);
+          let returnString = '';
+          for (x of valStorage) {
+            returnString += `( ${x} ) -> `
+          }
+          returnString += `( null )`
+          console.log(returnString);
+          return
+        } else {
+          valStorage.push(input.value);
+          return toString(input.next, valStorage)
+        }
+      }
+
 
       return {
+        toString,
+        findVal,
+        containsVal,
+        pop,
+        atInd,
+        tail,
+        currHead,
+        size,
         head,
         appendNode,
         prependNode,
@@ -75,8 +185,26 @@
     // testlist.appendNode(testlist.list, testnode5);
     // console.log(testlist);
 
-    testlist.prependNode(testnode4);
-    console.log(testlist.head);
+    // testlist.prependNode(testnode4);
+    // console.log(testlist.head);
+
+    // testlist.size(testlist.head, 0);
+    // console.log(testlist.currHead(testlist.head));
+
+    // testlist.tail(testlist.head);
+
+    // testlist.atInd(testlist.head, 0, 2);
+
+    // testlist.containsVal(testlist.head, 222);
+    // console.log(testlist.containsVal(testlist.head, 222));
+
+    // testlist.findVal(testlist.head, 222);
+
+    testlist.toString(testlist.head, []);
+
+    // testlist.size(testlist.head, 0);
+    // testlist.pop(testlist.head);
+    // testlist.size(testlist.head, 0);
 
     // let list = {
     //     value: 1,
