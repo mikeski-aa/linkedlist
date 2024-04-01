@@ -127,7 +127,7 @@
         }
       };
 
-      // represents your LinkedList objects as strings, so you can print them out and 
+      // represents your LinkedList objects as strings, so you can print them out and
       // preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
       const toString = (input, arr) => {
         let valStorage = arr;
@@ -135,21 +135,59 @@
         if (input.next === null) {
           valStorage.push(input.value);
           console.log(valStorage);
-          let returnString = '';
+          let returnString = "";
           for (x of valStorage) {
-            returnString += `( ${x} ) -> `
+            returnString += `( ${x} ) -> `;
           }
-          returnString += `( null )`
+          returnString += `( null )`;
           console.log(returnString);
-          return
+          return;
         } else {
           valStorage.push(input.value);
-          return toString(input.next, valStorage)
+          return toString(input.next, valStorage);
         }
-      }
+      };
 
+      // insertAt(value, index) that inserts a new node with the provided value at the given index.
 
+      const insertAt = (inputValue, targetIndex) => {
+        if (size(head, 1) === 0) {
+          return;
+        } else {
+          let oldNode = { ...atInd(head, 0, targetIndex) };
+          atInd(head, 0, targetIndex).value = inputValue;
+          atInd(head, 0, targetIndex).next = oldNode;
+          toString(head, []);
+          return head;
+        }
+      };
+
+      //  removeAt(index) that removes the node at the given index.
+      const removeAt = (targetIndex) => {
+        if (targetIndex > size(head, 1)) {
+          return console.log("incorrect input");
+        } else {
+          if (targetIndex === 0) {
+            let oldNodes = { ...atInd(head, 0, targetIndex).next };
+            head = oldNodes;
+            toString(head, []);
+          }
+          else if (targetIndex + 1 == size(head, 1)) {
+            console.log("last element selected");
+            atInd(head, 0, targetIndex - 1).next = null;
+            toString(head, []);
+          } else {
+            let nextNode = { ...atInd(head, 0, targetIndex + 1) };
+
+            console.log(nextNode);
+            atInd(head, 0, targetIndex - 1).next = nextNode;
+            toString(head, []);
+          }
+        }
+      };
       return {
+        removeAt,
+        insertAt,
         toString,
         findVal,
         containsVal,
@@ -193,31 +231,23 @@
 
     // testlist.tail(testlist.head);
 
-    // testlist.atInd(testlist.head, 0, 2);
+    // testlist.atInd(testlist.head, 0, 3);
 
     // testlist.containsVal(testlist.head, 222);
     // console.log(testlist.containsVal(testlist.head, 222));
 
     // testlist.findVal(testlist.head, 222);
 
+    // testlist.toString(testlist.head, []);
+    // testlist.toString(testlist.head, []);
+    // testlist.insertAt(888, 2);
+    // console.log(testlist.head);
     testlist.toString(testlist.head, []);
+    // testlist.size(testlist.head, 1);
+    // testlist.removeAt(0);
 
     // testlist.size(testlist.head, 0);
     // testlist.pop(testlist.head);
     // testlist.size(testlist.head, 0);
-
-    // let list = {
-    //     value: 1,
-    //     next: {
-    //         value: 2,
-    //         next: {
-    //             value: 3,
-    //             next: {
-    //                 value: 4,
-    //                 next: null
-    //             }
-    //         }
-    //     }
-    // }
   </script>
 </html>
